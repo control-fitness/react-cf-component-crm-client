@@ -1,4 +1,6 @@
-import { connect } from 'react-redux';
+//import { connect } from 'react-redux';
+
+import { connect } from '../redux-custom';
 import { openModal } from '../actions/openModal';
 import { closeModal } from '../actions/closeModal';
 import create from '../actions/create';
