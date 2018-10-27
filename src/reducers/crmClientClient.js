@@ -1,6 +1,7 @@
+
 import { SET_VALUE } from '../actions/setValue';
 
-const client = (state = { client: {} }, action) => {
+const crmClientClient = (state = { client: {} }, action) => {
   switch (action.type) {
     case SET_VALUE:
       return Object.assign({}, state, {
@@ -11,4 +12,4 @@ const client = (state = { client: {} }, action) => {
   }
 };
 
-export default client;
+export default crmClientClient;

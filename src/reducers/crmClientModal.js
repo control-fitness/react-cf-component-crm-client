@@ -4,7 +4,7 @@ import { OPEN_MODAL } from '../actions/openModal';
 import { CLOSE_MODAL } from '../actions/closeModal';
 import { SET_ERROR_MESSAGE } from '../actions/setErrorMessage';
 
-const modal = (state = {
+const crmClientModal = (state = {
   open: false,
   updating: false,
   firstNameErrorMessage: '',
@@ -33,4 +33,4 @@ const modal = (state = {
   }
 };
 
-export default modal;
+export default crmClientModal;

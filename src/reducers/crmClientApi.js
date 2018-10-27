@@ -1,6 +1,6 @@
 import { RECEIVE_LIST } from '../actions/list';
 
-const api = (state = { list: {}, page: 1, loading: true }, action) => {
+const crmClientApi = (state = { list: {}, page: 1, loading: true }, action) => {
   switch (action.type) {
     case RECEIVE_LIST:
       return Object.assign({}, state, {
@@ -13,4 +13,4 @@ const api = (state = { list: {}, page: 1, loading: true }, action) => {
   }
 };
 
-export default api;
+export default crmClientApi;

@@ -7,17 +7,18 @@ import { fetchList } from '../actions/list';
 import Home from '../components/Home';
 
 const mapStateToProps = state => ({
-  loading: state.api.loading,
-  page: state.api.page,
-  list: state.api.list,
-  open: state.modal.open,
-  updating: state.modal.updating,
-  firstName: state.client.client.firstName,
-  lastName: state.client.client.lastName,
-  sex: state.client.client.sex,
-  firstNameErrorMessage: state.modal.firstNameErrorMessage,
-  lastNameErrorMessage: state.modal.lastNameErrorMessage,
-  sexErrorMessage: state.modal.sexErrorMessage,
+  loading: state.crmClientApi.loading,
+  page: state.crmClientApi.page,
+  list: state.crmClientApi.list,
+  open: state.crmClientModal.open,
+  firstNameErrorMessage: state.crmClientModal.firstNameErrorMessage,
+  lastNameErrorMessage: state.crmClientModal.lastNameErrorMessage,
+  sexErrorMessage: state.crmClientModal.sexErrorMessage,
+  updating: state.crmClientModal.updating,
+  firstName: state.crmClientClient.client.firstName,
+  lastName: state.crmClientClient.client.lastName,
+  sex: state.crmClientClient.client.sex,
+
 });
 
 const mapDispatchToProps = dispatch => ({
