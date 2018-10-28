@@ -1,5 +1,3 @@
-//import { connect } from 'react-redux';
-
 import { connect } from '../redux-custom';
 import { openModal } from '../actions/openModal';
 import { closeModal } from '../actions/closeModal';
@@ -9,6 +7,7 @@ import { fetchList } from '../actions/list';
 import Home from '../components/Home';
 
 const mapStateToProps = state => ({
+  query: state.crmClientApi.query,
   loading: state.crmClientApi.loading,
   page: state.crmClientApi.page,
   list: state.crmClientApi.list,
@@ -36,8 +35,12 @@ const mapDispatchToProps = dispatch => ({
   setValue: (value, property) => {
     dispatch(setValue(value, property));
   },
-  fetchList: (page) => {
-    fetchList(page, dispatch);
+  fetchList: (query, page) => {
+    fetchList(query, page, dispatch);
+  },
+  search: (page, value, property) => {
+    dispatch(setValue(value, property));
+    fetchList(value, page, dispatch);
   },
 });
 

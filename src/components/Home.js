@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {
-  Card, Menu, Header, Button, Icon, Segment,
+  Card, Menu, Header, Button, Icon, Segment, Input,
 } from 'semantic-ui-react';
 import I18n from 'react-cf-helper-i18n';
 import { Link } from 'react-router-dom';
@@ -10,14 +10,16 @@ import New from './New';
 
 const Home = function Home(props) {
   const {
+    query,
     openModal,
     fetchList,
     list,
     page,
     loading,
+    search,
   } = props;
 
-  fetchList(page);
+  fetchList(query, page);
 
   return (
     <Segment basic loading={loading}>
@@ -36,6 +38,15 @@ const Home = function Home(props) {
             to="/crm/groups"
             name="Grupos"
           />
+          <Menu.Menu position="right">
+            <Menu.Item>
+              <Input
+                icon="search"
+                placeholder={I18n.t('form.buttons.search')}
+                onChange={event => search(page, event.target.value, 'query')}
+              />
+            </Menu.Item>
+          </Menu.Menu>
         </Menu>
         <Card.Content>
           <Menu borderless compact fluid text>
@@ -57,7 +68,12 @@ const Home = function Home(props) {
           </Menu>
         </Card.Content>
         <Card.Content>
-          <List clients={list} fetchList={fetchList} page={page} />
+          <List
+            clients={list}
+            fetchList={fetchList}
+            page={page}
+            query={query}
+          />
         </Card.Content>
       </Card>
     </Segment>

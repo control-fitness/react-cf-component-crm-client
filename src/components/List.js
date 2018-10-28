@@ -7,7 +7,12 @@ import MessageContent from 'react-cf-component-message-content';
 import GenderHelper from './GenderHelper';
 
 const List = function Client(props) {
-  const { clients, page, fetchList } = props;
+  const {
+    clients,
+    page,
+    fetchList,
+    query,
+  } = props;
 
   const body = function body() {
     const rows = clients.nodes.map(client => (
@@ -17,6 +22,9 @@ const List = function Client(props) {
         </Table.Cell>
         <Table.Cell>
           {GenderHelper(client.sex)}
+        </Table.Cell>
+        <Table.Cell>
+          {client.email}
         </Table.Cell>
       </Table.Row>
     ));
@@ -29,7 +37,7 @@ const List = function Client(props) {
     <div>
       {clients.totalEntries && clients.totalEntries > 0 && (
       <div>
-        <Table size="small">
+        <Table basic size="small">
           <Table.Header>
             <Table.Row>
               <Table.HeaderCell>
@@ -38,13 +46,16 @@ const List = function Client(props) {
               <Table.HeaderCell>
                 {I18n.t('crm.client.form.sex')}
               </Table.HeaderCell>
+              <Table.HeaderCell>
+                {I18n.t('crm.client.form.email')}
+              </Table.HeaderCell>
             </Table.Row>
           </Table.Header>
           {body()}
         </Table>
         <Pagination
           activePage={page}
-          onPageChange={(e, item) => fetchList(item.activePage)}
+          onPageChange={(e, item) => fetchList(query, item.activePage)}
           totalPages={clients.totalPages}
         />
       </div>
@@ -74,6 +85,7 @@ List.propTypes = {
     totalPages: PropTypes.number,
     nodes: PropTypes.array,
   }),
+  query: PropTypes.string.isRequired,
   fetchList: PropTypes.func.isRequired,
   page: PropTypes.number.isRequired,
 };

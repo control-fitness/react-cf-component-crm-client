@@ -14,12 +14,12 @@ export function receiveList(data, page) {
   };
 }
 
-export const fetchList = (page, dispath) => {
+export const fetchList = (query, page, dispatch) => {
   // make request
   Client.query({
     query: Graphql`
       {
-        crmClientList(page: ${page}) {
+        crmClientList(query: "${query}", page: ${page}) {
           totalPages
           currentPage
           totalEntries
@@ -29,12 +29,13 @@ export const fetchList = (page, dispath) => {
             id
             firstName
             lastName
+            email
             sex
           }
         }
       }
     `,
   }).then((result) => {
-    dispath(receiveList(result.data.crmClientList, page));
+    dispatch(receiveList(result.data.crmClientList, page));
   });
 };
