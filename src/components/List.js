@@ -1,3 +1,5 @@
+/* globals window */
+
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Table, Pagination } from 'semantic-ui-react';
@@ -5,6 +7,14 @@ import Cdn from 'react-cf-helper-cdn';
 import I18n from 'react-cf-helper-i18n';
 import MessageContent from 'react-cf-component-message-content';
 import GenderHelper from './GenderHelper';
+
+/**
+ * Use to redirect
+ * @param {Integer} id
+ */
+const goToProfile = function goToProfile(id) {
+  window.location = `/crm/clients/${id}`;
+};
 
 const List = function Client(props) {
   const {
@@ -16,7 +26,10 @@ const List = function Client(props) {
 
   const body = function body() {
     const rows = clients.nodes.map(client => (
-      <Table.Row key={client.id}>
+      <Table.Row
+        key={client.id}
+        onClick={() => goToProfile(client.id)}
+      >
         <Table.Cell>
           {`${client.firstName} ${client.lastName}`}
         </Table.Cell>
@@ -37,7 +50,7 @@ const List = function Client(props) {
     <div>
       {clients.totalEntries && clients.totalEntries > 0 && (
       <div>
-        <Table basic size="small">
+        <Table selectable basic size="small">
           <Table.Header>
             <Table.Row>
               <Table.HeaderCell>
