@@ -1,7 +1,9 @@
+import debounce from 'lodash/debounce';
 import { connect } from '../redux-custom';
 import { openModal } from '../actions/openModal';
 import { closeModal } from '../actions/closeModal';
 import create from '../actions/create';
+import search from '../actions/search';
 import { setValue } from '../actions/setValue';
 import { fetchList } from '../actions/list';
 import Home from '../components/Home';
@@ -39,8 +41,7 @@ const mapDispatchToProps = dispatch => ({
     fetchList(query, page, dispatch);
   },
   search: (page, value, property) => {
-    dispatch(setValue(value, property));
-    fetchList(value, page, dispatch);
+    search(dispatch, page, value, property);
   },
 });
 

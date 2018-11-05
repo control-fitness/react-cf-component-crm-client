@@ -5,6 +5,7 @@ import {
 } from 'semantic-ui-react';
 import I18n from 'react-cf-helper-i18n';
 import { Link } from 'react-router-dom';
+import _ from 'lodash';
 import List from './List';
 import New from './New';
 

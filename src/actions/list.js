@@ -36,6 +36,7 @@ export const fetchList = (query, page, dispatch) => {
         }
       }
     `,
+    fetchPolicy: 'network-only',
   }).then((result) => {
     dispatch(receiveList(result.data.crmClientList, page));
   });
