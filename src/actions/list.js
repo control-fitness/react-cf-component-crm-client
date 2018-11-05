@@ -19,7 +19,7 @@ export const fetchList = (query, page, dispatch) => {
   Client.query({
     query: Graphql`
       {
-        crmClientList(query: "${query}", page: ${page}) {
+        crmClientList(query: "${query}", page: ${page}, perPage: 21) {
           totalPages
           currentPage
           totalEntries
@@ -27,6 +27,7 @@ export const fetchList = (query, page, dispatch) => {
           nextPage
           nodes {
             id
+            avatar
             firstName
             lastName
             email

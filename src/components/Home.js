@@ -38,15 +38,6 @@ const Home = function Home(props) {
             to="/crm/groups"
             name="Grupos"
           />
-          <Menu.Menu position="right">
-            <Menu.Item>
-              <Input
-                icon="search"
-                placeholder={I18n.t('form.buttons.search')}
-                onChange={event => search(page, event.target.value, 'query')}
-              />
-            </Menu.Item>
-          </Menu.Menu>
         </Menu>
         <Card.Content>
           <Menu borderless compact fluid text>
@@ -55,16 +46,25 @@ const Home = function Home(props) {
                 Clientes
               </Header>
             </Menu.Item>
-            <Menu.Item position="right">
-              <Button
-                color="blue"
-                floated="right"
-                onClick={() => openModal()}
-              >
-                <Icon name="add" />
-                {I18n.t('form.buttons.create')}
-              </Button>
-            </Menu.Item>
+            <Menu.Menu position="right">
+              <Menu.Item>
+                <Button
+                  color="green"
+                  floated="right"
+                  onClick={() => openModal()}
+                >
+                  <Icon name="add" />
+                  {I18n.t('form.buttons.create')}
+                </Button>
+              </Menu.Item>
+              <Menu.Item>
+                <Input
+                  icon="search"
+                  placeholder={I18n.t('form.buttons.search')}
+                  onChange={event => search(page, event.target.value, 'query')}
+                />
+              </Menu.Item>
+            </Menu.Menu>
           </Menu>
         </Card.Content>
         <Card.Content>

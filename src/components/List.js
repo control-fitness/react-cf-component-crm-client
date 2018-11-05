@@ -1,22 +1,15 @@
-/* globals window */
-
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Table, Pagination } from 'semantic-ui-react';
+import {
+  Grid, Pagination, Item, Segment,
+} from 'semantic-ui-react';
 import Cdn from 'react-cf-helper-cdn';
 import I18n from 'react-cf-helper-i18n';
 import MessageContent from 'react-cf-component-message-content';
+import { Link } from 'react-router-dom';
 import GenderHelper from './GenderHelper';
 
-/**
- * Use to redirect
- * @param {Integer} id
- */
-const goToProfile = function goToProfile(id) {
-  window.location = `/crm/clients/${id}`;
-};
-
-const List = function Client(props) {
+const List = function List(props) {
   const {
     clients,
     page,
@@ -26,55 +19,52 @@ const List = function Client(props) {
 
   const body = function body() {
     const rows = clients.nodes.map(client => (
-      <Table.Row
+      <Grid.Column
         key={client.id}
-        onClick={() => goToProfile(client.id)}
       >
-        <Table.Cell>
-          {`${client.firstName} ${client.lastName}`}
-        </Table.Cell>
-        <Table.Cell>
-          {GenderHelper(client.sex)}
-        </Table.Cell>
-        <Table.Cell>
-          {client.email}
-        </Table.Cell>
-      </Table.Row>
+        <Segment size="small">
+          <Item.Group divided unstackable>
+            <Item>
+              <Item.Image
+                size="tiny"
+                src={client.avatar}
+              />
+              <Item.Content verticalAlign="middle">
+                <Item.Header
+                  as={Link}
+                  to={`/crm/clients/${client.id}`}
+                >
+                  {`${client.firstName} ${client.lastName}`}
+                </Item.Header>
+                <Item.Meta>{GenderHelper(client.sex)}</Item.Meta>
+              </Item.Content>
+            </Item>
+          </Item.Group>
+        </Segment>
+      </Grid.Column>
     ));
-    return (
-      <Table.Body>{rows}</Table.Body>
-    );
+    return rows;
   };
+
+  const content = clients.totalEntries > 0;
 
   return (
     <div>
-      {clients.totalEntries && clients.totalEntries > 0 && (
-      <div>
-        <Table selectable basic size="small">
-          <Table.Header>
-            <Table.Row>
-              <Table.HeaderCell>
-                {I18n.t('crm.client.form.firstName')}
-              </Table.HeaderCell>
-              <Table.HeaderCell>
-                {I18n.t('crm.client.form.sex')}
-              </Table.HeaderCell>
-              <Table.HeaderCell>
-                {I18n.t('crm.client.form.email')}
-              </Table.HeaderCell>
-            </Table.Row>
-          </Table.Header>
-          {body()}
-        </Table>
-        <Pagination
-          activePage={page}
-          onPageChange={(e, item) => fetchList(query, item.activePage)}
-          totalPages={clients.totalPages}
-        />
-      </div>
-
+      {content && (
+        <div>
+          <Grid columns={3}>
+            {body()}
+          </Grid>
+          <Segment basic floated="right">
+            <Pagination
+              activePage={page}
+              onPageChange={(e, item) => fetchList(query, item.activePage)}
+              totalPages={clients.totalPages}
+            />
+          </Segment>
+        </div>
       )}
-      {clients && clients.totalEntries === 0 && (
+      {!content && (
       <MessageContent
         icon={Cdn.image('information-80-80.svg')}
         title={I18n.t('messages.noRecords.title')}
